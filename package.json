@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/laurelherting/hapijs#readme",
   "dependencies": {
+    "good": "^7.2.0",
+    "good-console": "^6.4.0",
     "hapi": "^16.5.2"
   }
 }
