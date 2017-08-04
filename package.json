@@ -1,0 +1,26 @@
+{
+  "name": "hapijs",
+  "version": "1.0.0",
+  "description": "hapi.js Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laurelherting/hapijs.git"
+  },
+  "keywords": [
+    "hapi.js",
+    "Node.js"
+  ],
+  "author": "Laurel Herting",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/laurelherting/hapijs/issues"
+  },
+  "homepage": "https://github.com/laurelherting/hapijs#readme",
+  "dependencies": {
+    "hapi": "^16.5.2"
+  }
+}
