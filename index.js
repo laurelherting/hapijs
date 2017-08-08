@@ -8,16 +8,12 @@ server.connection({
   port: 8000
 })
 
-let goodOptions = {
-  reporters: {
-    console: [{
-      module: 'good-squeeze',
-      name: 'Squeeze',
-      args: [{ log: '*', response: '*' }]
-    }, {
-      module: 'good-console'
-    }, 'stdout'],
-  }
+let goodOptions = { 
+  reporters: { 
+    console: [{ 
+      module: 'good-console' },
+              'stdout'], 
+  } 
 }
 
 server.register({
