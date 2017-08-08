@@ -3,44 +3,16 @@
 const Hapi = require('hapi')
 
 const server = new Hapi.Server()
-server.connection({
-  host: 'localhost',
-  port: 8000
-})
+server.connection({ port: 8000 })
 
-let goodOptions = {
-  reporters: {
-    console: [{
-      module: 'good-squeeze',
-      name: 'Squeeze',
-      args: [{ log: '*', response: '*' }]
-    }, {
-      module: 'good-console'
-    }, 'stdout'],
-  }
+function handler(request, reply) {
+  reply(request.params)
 }
 
-server.register({
-  register: require('good'),
-  options: goodOptions
-}, err => {
-
-  server.route({
+server.route({
     method: 'GET',
-    path: '/',
-    handler: (request, reply) => {
-      reply('hello hapi')
-    }
-  })
-
-  server.route({
-    method: 'GET',
-    path: '/{name}',
-    handler: (request, reply) => {
-      reply(`hello ${request.params.name}`)
-    }
-  })
-
-  server.start(() => console.log('started at: ${server.info.uri}'))
+    path: '/files/{files*}',
+    handler: handler
 })
 
+server.start(() => console.log('started at: ${server.info.uri}'))
