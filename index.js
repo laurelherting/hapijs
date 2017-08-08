@@ -9,17 +9,21 @@ server.connection({
 })
 
 let goodOptions = {
-  reporters: [{
-    reporter: require('good-console'),
-    events: { log: '*', response: '*' }
-  }]
+  reporters: {
+    console: [{
+      module: 'good-squeeze',
+      name: 'Squeeze',
+      args: [{ log: '*', response: '*' }]
+    }, {
+      module: 'good-console'
+    }, 'stdout'],
+  }
 }
 
 server.register({
   register: require('good'),
   options: goodOptions
 }, err => {
-
 
   server.route({
     method: 'GET',
@@ -33,7 +37,7 @@ server.register({
     method: 'GET',
     path: '/{name}',
     handler: (request, reply) => {
-      reply('hello ${request.params.name}')
+      reply(`hello ${request.params.name}`)
     }
   })
 
