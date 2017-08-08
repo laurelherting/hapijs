@@ -11,7 +11,14 @@ function handler(request, reply) {
 
 server.route({
     method: 'GET',
-    path: '/files/{files*}',
+    path: '/{stuff*}',
+    handler: handler
+})
+
+
+server.route({
+    method: 'GET',
+    path: '/files/{file}.jpg',
     handler: handler
 })
 
