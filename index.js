@@ -1,25 +1,15 @@
 'use strict'
-
 const Hapi = require('hapi')
-
+const Boom = require('boom')
 const server = new Hapi.Server()
 server.connection({ port: 8000 })
 
-function handler(request, reply) {
-  reply(request.params)
-}
-
 server.route({
     method: 'GET',
-    path: '/{stuff*}',
-    handler: handler
+    path: '/',
+    handler: function(request, reply) {
+      reply(Boom.notFound())
+    }
 })
 
-
-server.route({
-    method: 'GET',
-    path: '/files/{file}.jpg',
-    handler: handler
-})
-
-server.start(() => console.log('started at: ${server.info.uri}'))
+server.start(() => {})
