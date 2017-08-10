@@ -1,19 +1,21 @@
 'use strict'
+const Path = require('path')
 const Hapi = require('hapi')
-const Boom = require('boom')
+const Inert = require('inert')
+
 const server = new Hapi.Server()
 server.connection({ port: 8000 })
 
-server.route({
+server.register(Inert, () => {
+  
+  server.route({
     method: 'GET',
-    path: '/',
-    handler: function(request, reply) {
-      reply('hello world')
-        .code(418)
-        .type('text/plain')
-        .header('hello', 'world') 
-        .state('hello', 'world')
+    path: '/{param*}',
+    handler: {
+        directory: {
+            path: '.',
+        }
     }
+  })
+  server.start(() => console.log(`Started at: ${server.info.uri}`)
 })
-
-server.start(() => {})
