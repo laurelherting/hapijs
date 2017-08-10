@@ -1,22 +1,26 @@
 'use strict'
 const Hapi = require('hapi')
-const Path = require('path')
-
 const server = new Hapi.Server()
 server.connection({ port: 8000 })
 
-server.register(require('inert'), () => {
+server.register(require('vision'), () => {
   
+  server.views({
+    engines: {
+      hbs: require('handlebars')
+    },
+    relativeTo: __dirname,
+    layout: true,
+    path: 'views'
+  })
+
   server.route({
     method: 'GET',
-    path: '/{param*}',
-    handler: {
-      directory: {
-
-        // path to image goes here
-        path: '.',
-      }
+    path: '/{name?}',
+    handler: (request, reply) => {
+      reply.view('home', { name: request.params.name || 'world' })
     }
   })
+
   server.start(() => console.log(`Started at: ${server.info.uri}`))
 })
