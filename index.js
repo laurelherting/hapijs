@@ -1,21 +1,22 @@
 'use strict'
-const Path = require('path')
 const Hapi = require('hapi')
-const Inert = require('inert')
+const Path = require('path')
 
 const server = new Hapi.Server()
 server.connection({ port: 8000 })
 
-server.register(Inert, () => {
+server.register(require('inert'), () => {
   
   server.route({
     method: 'GET',
     path: '/{param*}',
     handler: {
-        directory: {
-            path: '.',
-        }
+      directory: {
+
+        // path to image goes here
+        path: '.',
+      }
     }
   })
-  server.start(() => console.log(`Started at: ${server.info.uri}`)
+  server.start(() => console.log(`Started at: ${server.info.uri}`))
 })
