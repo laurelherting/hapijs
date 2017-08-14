@@ -1,32 +1,29 @@
 'use strict'
 const Hapi = require('hapi')
-const Boom = require('boom')
+const Joi = require('joi')
 const server = new Hapi.Server()
 server.connection({ port: 8000 })
 
-server.register(require('vision'), () => {
-  
-  server.views({
-    engines: { hbs: require('handlebars') },
-    relativeTo: __dirname,
-    path: 'views'
-  })
-
-  server.ext('onPreResponse', (request, reply) => {
-    let resp = request.response
-    if (!resp.isBoom) return reply.continue()
-  
-    reply.view('error', resp.output.payload)
-      .code(resp.output.statusCode)
-  })
-
-  server.route({
-    method: 'GET',
-    path: '/',
+server.route({
+  method: ['POST', 'PUT'],
+  path: '/user/{id?}',
+  config: {
+    validate: {
+      params: Joi.object({
+        id: Joi.number()
+      }),
+      query: Joi.object({
+        id: Joi.number()
+      })
+    },
     handler: (request, reply) => {
-      reply(Boom.notFound())
+      reply({
+        params: request.params,
+        query: request.query,
+        payload: request.payload
+      })
     }
-  })
-server.start(() => {})
-
+  }
 })
+
+server.start(() => {})
