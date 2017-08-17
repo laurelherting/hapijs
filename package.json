@@ -4,7 +4,8 @@
   "description": "hapi.js Node.js",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": "git+https://github.com/laurelherting/hapijs.git",
   "keywords": [
